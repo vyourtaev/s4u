@@ -22,24 +22,33 @@ class Account(models.Model):
     currency = models.CharField(max_length=5, choices=CURRENCY_CHOICES, default='USD')
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(
-        blank=True,
+        auto_now_add=True
     )
     updated = models.DateTimeField(
-        blank=True
+        auto_now=True
     )
 
     class Meta:
         verbose_name = 'Account'
         verbose_name_plural = 'Accounts'
 
+    def __str__(self):
+        return "{:08d}".format(self.id)
 
-class Trancsaction(models.Model):
+
+class Transaction(models.Model):
     """
     Transaction
     """
-    source = models.ForeignKey('Account')
-    destination = models.ForeignKey('Account')
-    amount = models.ItegerField(max_length=8)
+    source = models.ForeignKey('Account', related_name='source', blank=True, null=True)
+    destination = models.ForeignKey('Account', related_name='destination')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created = models.DateTimeField(
+        auto_now_add=True
+    )
+    updated = models.DateTimeField(
+        auto_now=True
+    )
 
     class Meta:
         verbose_name = "Transaction"
