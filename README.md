@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Task overview
 
 Build a basic system that keeps track of a set of accounts and allows external systems to execute transactions that change the accounts balances.

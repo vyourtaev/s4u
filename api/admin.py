@@ -15,4 +15,5 @@ class AccountAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('amount', 'source', 'destination', 'created')
+    list_display = ('amount', 'source', 'destination', 'name', 'created')
+    exclude = ('name',)

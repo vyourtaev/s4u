@@ -40,8 +40,10 @@ class Transaction(models.Model):
     """
     Transaction
     """
+
+    name = models.CharField(max_length=10, blank=True, null=True)
     source = models.ForeignKey('Account', related_name='source', blank=True, null=True)
-    destination = models.ForeignKey('Account', related_name='destination')
+    destination = models.ForeignKey('Account', related_name='destination', blank=True, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     created = models.DateTimeField(
         auto_now_add=True
@@ -53,3 +55,12 @@ class Transaction(models.Model):
     class Meta:
         verbose_name = "Transaction"
         verbose_name_plural = "Transactions"
+
+    def save(self, *args, **kwargs):
+        if not self.source:
+            self.name = 'DEPOSIT'
+        elif not self.destination:
+            self.name = 'WITHDRAWAL'
+        else:
+            self.name = 'TRANSFER'
+        super(Transaction, self).save(*args, **kwargs)
