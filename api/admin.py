@@ -15,5 +15,15 @@ class AccountAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('amount', 'source', 'destination', 'name', 'created')
+    list_display = ('amount', 'get_currency', 'source', 'destination', 'name', 'created')
     exclude = ('name',)
+
+    def get_currency(self, obj):
+        if obj.name == 'TRANSFER':
+            return obj.source.currency
+        elif obj.name == 'DEPOSIT':
+            return obj.destination.currency
+        else:
+            return obj.source.currency
+
+    get_currency.short_description = "CURRENCY"
