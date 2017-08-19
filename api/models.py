@@ -44,6 +44,9 @@ class Account(models.Model):
     def __str__(self):
         return "{:08d}".format(self.id)
 
+    def get_absolute_url(self):
+        return "/api/accounts/%i/" % self.id
+
 
 class Transaction(models.Model):
     """

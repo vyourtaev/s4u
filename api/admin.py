@@ -8,6 +8,7 @@ from api.models import Account, Transaction
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
     list_display = ('formated_account_id', 'balance', 'currency', 'created')
+    view_on_site = True
 
     def formated_account_id(self, obj):
         return "{:08d}".format(obj.id)
