@@ -26,7 +26,9 @@
     <tbody>
     {% for account in accounts %}
     <tr>
-	<td>{{ account.id | stringformat:"08d" }}</td>
+	<td>
+		<a href="{% url 'account_details' account.id %}">{{ account.id | stringformat:"08d" }}</a>
+	</td>
 	<td>{{ account.balance }}</td>
 	<td>{{ account.currency }}</td>
 	<td>{{ account.created }}</td>

@@ -7,7 +7,7 @@ from ui.views import index
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^accounts$', AccountView.as_view(), name='accounts'),
-    url(r'^accounts/(?P<pk>[0-9]+)/$', AccountDetailView.as_view()),
+    url(r'^accounts/(?P<pk>[0-9]+)/$', AccountDetailView.as_view(), name='account_details'),
     url(r'^transactions$', TransactionView.as_view(), name='transactions'),
 ]
 
