@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.views.generic.detail import DetailView
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 
@@ -26,6 +27,16 @@ class AccountView(TemplateView):
         except EmptyPage:
             show_lines = paginator.page(paginator.num_pages)
         context['accounts'] = show_lines
+        return context
+
+class AccountDetailView(DetailView):
+    template_name = "account_details.html"
+    context_object_name = "account"
+    model = Account
+
+    def get_context_data(self, **kwargs):
+        context = super(AccountDetailView, self).get_context_data(**kwargs)
+        context['now'] = "JUST FOR TEST"
         return context
 
 
