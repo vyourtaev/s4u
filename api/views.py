@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 # from rest_framework.parsers import JSONParser
 
 from rest_framework import generics
+from rest_framework import permissions
 
 from api.models import Account, Transaction
 from api.serializers import AccountSerializer, TransactionSerializer
@@ -20,11 +21,13 @@ def index(request):
 class AccountList(generics.ListCreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class AccountDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class TransactionList(generics.ListCreateAPIView):

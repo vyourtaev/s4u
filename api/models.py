@@ -79,6 +79,9 @@ class Transaction(models.Model):
             amount *= decimal.Decimal(rate)
         return amount
 
+    def get_absolute_url(self):
+        return "/api/transactins/%i/" % self.id
+
     def save(self, *args, **kwargs):
         if not self.source:
             self.destination.deposit(self.amount)
