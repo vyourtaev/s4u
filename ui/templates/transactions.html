@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %} 
+
+{% block title %}
+	Transactions list
+{% endblock %}
+{% block header %}
+<div class="page-header">
+    <h3>Transactions list</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+	    <th>Transaction id</th>
+	    <th>Amount</td>
+	    <th>Currency</th>
+	    <th>Source</th>
+	    <th>Destination</th>
+	    <th>Operation</th>
+	    <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for transaction in transactions %}
+    <tr>
+	<td>{{ transaction.id }}</td>
+	<td>{{ transaction.amount }}</td>
+	<td>{{ transaction.currency }}</td>
+	<td>{{ transaction.source }} {{ transaction.source.currency }}</td>
+	<td>{{ transaction.destination }} {{ transaction.destination.currency }}</td>
+	<td>{{ transaction.name }}</td>
+	<td>{{ transaction.created }}</td>
+    </tr>
+    {% endfor %}
+    <tbody>
+</table>
+<div align="center">
+{% bootstrap_pagination transactions  url="transactions" size="small" %}
+</div>
+{% endblock %}
+
+

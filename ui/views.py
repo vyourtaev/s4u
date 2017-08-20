@@ -30,13 +30,13 @@ class AccountView(TemplateView):
 
 
 class TransactionView(TemplateView):
-    template_name = 'transaction.html'
+    template_name = 'transactions.html'
 
     def get_context_data(self, **kwargs):
         context = super(TransactionView, self).get_context_data(**kwargs)
         transactions = Transaction.objects.all()
 
-        paginator = Paginator(accounts, 10)
+        paginator = Paginator(transactions, 10)
         page = self.request.GET.get('page')
         try:
             show_lines = paginator.page(page)

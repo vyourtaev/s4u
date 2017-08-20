@@ -74,7 +74,6 @@ class Transaction(models.Model):
         rate = result['rates'].get(dst.currency)
 
         if rate:
-            print rate
             import decimal
             amount *= decimal.Decimal(rate)
         return amount
