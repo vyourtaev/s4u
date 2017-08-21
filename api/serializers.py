@@ -6,6 +6,12 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields = '__all__'
 
+    def validate_balance(self, balance, *args):
+        if balance < 0:
+            raise serializers.ValidationError("Negative balance is not allowed")
+        return balance
+
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:

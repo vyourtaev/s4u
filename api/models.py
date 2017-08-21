@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from fixerio import Fixerio
 
@@ -21,7 +22,9 @@ class Account(models.Model):
     )
 
     currency = models.CharField(max_length=5, choices=CURRENCY_CHOICES, default='USD')
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.DecimalField(
+        max_digits=10,
+        decimal_places=2)
     created = models.DateTimeField(
         auto_now_add=True
     )
@@ -47,6 +50,10 @@ class Account(models.Model):
     def get_absolute_url(self):
         return "/api/accounts/%i/" % self.id
 
+    def clean(self):
+        if self.balance < 0:
+            raise ValidationError('Negative balance is not allowed.')
+
 
 class Transaction(models.Model):
     """
@@ -67,6 +74,12 @@ class Transaction(models.Model):
     class Meta:
         verbose_name = "Transaction"
         verbose_name_plural = "Transactions"
+
+    def clean(self):
+        if self.amount > self.source.balance:
+            raise ValidationError("Source account doesn't have anough money")
+        if self.amount < 0:
+            raise ValidationError('Negative amount is not allowed.')
 
     def currencty_converer(self, amount, src, dst):
         fxrio = Fixerio(base=src.currency)

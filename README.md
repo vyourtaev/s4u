@@ -81,6 +81,82 @@ Output on success:
 ```
 
 Fork your own copy of eglobal-it/s4u-test-assignment to your account and share the result with us.
-=======
 # s4u
->>>>>>> 440e0b0bd291eae8d3fa8bc5665471569136b319
+
+Getting Authentication Token
+
+curl -H "Content-Type:application/json" -X POST -d '{"username":"admin","password":"fabyjuty"}' http://localhost:8000/api-token-auth/
+{"token":"bac2e3b8d1d3339e9d507320eae4dceed39fbdf0"}
+
+Example REST api request 
+curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET http://localhost:8000/api/accounts/
+
+[
+    {
+        "balance": "102.88",
+        "created": "2017-08-17T09:48:40.713139Z",
+        "currency": "USD",
+        "id": 1,
+        "updated": "2017-08-20T21:53:01.103022Z"
+    },
+    {
+        "balance": "150.00",
+        "created": "2017-08-17T09:49:01.613741Z",
+        "currency": "EUR",
+        "id": 2,
+        "updated": "2017-08-19T12:55:16.265729Z"
+    },
+    {
+        "balance": "390.00",
+        "created": "2017-08-19T10:34:52.993088Z",
+        "currency": "GBP",
+        "id": 4,
+        "updated": "2017-08-19T10:43:02.628466Z"
+    },
+    {
+        "balance": "500.00",
+        "created": "2017-08-19T12:23:06.081221Z",
+        "currency": "USD",
+        "id": 5,
+        "updated": "2017-08-19T12:23:06.081251Z"
+    },
+    {
+        "balance": "500.00",
+        "created": "2017-08-19T14:45:06.902688Z",
+        "currency": "USD",
+        "id": 6,
+        "updated": "2017-08-19T14:45:06.902733Z"
+    },
+    {
+        "balance": "175.44",
+        "created": "2017-08-20T17:22:20.154973Z",
+        "currency": "GBP",
+        "id": 7,
+        "updated": "2017-08-20T21:53:01.265774Z"
+    }
+]
+
+curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET http://localhost:8000/api/accounts/1/
+{
+    "balance": "102.88",
+    "created": "2017-08-17T09:48:40.713139Z",
+    "currency": "USD",
+    "id": 1,
+    "updated": "2017-08-20T21:53:01.103022Z"
+}
+
+4. Request w/o Token Authorization
+curl  -XGET http://localhost:8000/api/accounts/
+
+{"detail":"Authentication credentials were not provided."}
+
+5. Create new Account:
+curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -H "Content-type:application/json" -X POST http://localhost:8000/api/accounts/ -d '{"balance":100}'
+
+{
+    "balance": "100.00",
+    "created": "2017-08-21T15:59:36.989501Z",
+    "currency": "EUR",
+    "id": 9,
+    "updated": "2017-08-21T15:59:36.989600Z"
+}
