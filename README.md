@@ -72,7 +72,7 @@ Input params (passed as form params):
   - amount - The amount to transfer. For transfers between accounts denominated in
 different currencies, this amount is in the source account currency.
 
-Output on success:
+### Output on success:
 ```
 {
   error: false,
@@ -83,12 +83,12 @@ Output on success:
 Fork your own copy of eglobal-it/s4u-test-assignment to your account and share the result with us.
 # s4u
 
-Getting Authentication Token
+### Getting Authentication Token
 
 curl -H "Content-Type:application/json" -X POST -d '{"username":"admin","password":"fabyjuty"}' http://localhost:8000/api-token-auth/
 {"token":"bac2e3b8d1d3339e9d507320eae4dceed39fbdf0"}
 
-Example REST api request 
+### Example REST api request 
 curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET http://localhost:8000/api/accounts/
 
 [
@@ -136,6 +136,7 @@ curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET ht
     }
 ]
 
+### Get request with Auth
 curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET http://localhost:8000/api/accounts/1/
 {
     "balance": "102.88",
@@ -145,12 +146,12 @@ curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -XGET ht
     "updated": "2017-08-20T21:53:01.103022Z"
 }
 
-4. Request w/o Token Authorization
+### 4. Request w/o Token Authorization
 curl  -XGET http://localhost:8000/api/accounts/
 
 {"detail":"Authentication credentials were not provided."}
 
-5. Create new Account:
+### 5. Create new Account:
 curl -H "Authorization: Token bac2e3b8d1d3339e9d507320eae4dceed39fbdf0" -H "Content-type:application/json" -X POST http://localhost:8000/api/accounts/ -d '{"balance":100}'
 
 {

@@ -1,0 +1,6 @@
+1. Test
+2. Pagination UI account detail / transaction
+3. validation API ( transfer : sourc and destination ==  null 
+4. Customs error module and customs exceptions
+5. nginx for static
+6. docker image build
